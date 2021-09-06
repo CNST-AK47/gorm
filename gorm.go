@@ -53,12 +53,14 @@ type Config struct {
 	// Dialector database dialector
 	Dialector
 	// Plugins registered plugins
+	// 注册的相关插件
 	Plugins map[string]Plugin
 
 	callbacks  *callbacks
 	cacheStore *sync.Map
 }
 
+// 拷贝赋值
 func (c *Config) Apply(config *Config) error {
 	if config != c {
 		*config = *c
@@ -66,6 +68,7 @@ func (c *Config) Apply(config *Config) error {
 	return nil
 }
 
+// 数据库应用
 func (c *Config) AfterInitialize(db *DB) error {
 	if db != nil {
 		for _, plugin := range c.Plugins {
